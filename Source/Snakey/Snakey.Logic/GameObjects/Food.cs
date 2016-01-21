@@ -4,7 +4,7 @@
 
     public class Food
     {
-        private const char SYMBOL = 'O';
+        private const char Symbol = 'O';
         
         public Food(Position position)
         {
