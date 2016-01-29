@@ -1,6 +1,7 @@
 ﻿namespace Snakey.ConsoleClient
 {
     using System;
+    using System.Diagnostics;
     using System.Threading;
 
     using Common;
@@ -16,6 +17,8 @@
         private ConsoleColor snakeColor;
         private ConsoleColor foodColor;
         private ConsoleColor gameOverColor;
+
+        private Stopwatch foodTimer;
 
         protected override void Setup()
         {
@@ -37,6 +40,9 @@
 
         public override void Run()
         {
+            this.foodTimer = new Stopwatch();
+            this.foodTimer.Start();
+
             this.Draw();
 
             while (true)
@@ -84,6 +90,17 @@
                     this.newGame.GenerateNewFood(newFoodPosition);
                     this.newGame.EnlargeSnake();
 
+                    this.foodTimer.Reset();
+                    this.foodTimer.Start();
+                    this.food = this.newGame.Food;
+                }
+
+                if (this.foodTimer.Elapsed.Seconds >= 8)
+                {
+                    var newFoodPosition = this.GetRandomPosition();
+                    this.newGame.GenerateNewFood(newFoodPosition);
+                    this.foodTimer.Reset();
+                    this.foodTimer.Start();
                     this.food = this.newGame.Food;
                 }
 
