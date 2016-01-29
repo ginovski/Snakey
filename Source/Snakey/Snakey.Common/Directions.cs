@@ -1,6 +1,6 @@
 ﻿namespace Snakey.Common
 {
-    public enum Directions
+    public enum Direction
     {
         Right = 0,
         Left = 1,

@@ -11,11 +11,18 @@
     {
         private static Random randomGenerator = new Random();
 
-        private const string EndMessageFormat = "Game Over.Your score is {0}$";
+        private const string EndMessageFormat = "Game Over.Your score is {0} points";
+
+        private ConsoleColor snakeColor;
+        private ConsoleColor foodColor;
+        private ConsoleColor gameOverColor;
 
         protected override void Setup()
         {
             Console.BufferHeight = Console.WindowHeight;
+            this.snakeColor = ConsoleColor.Cyan;
+            this.foodColor = ConsoleColor.Yellow;
+            this.gameOverColor = ConsoleColor.Red;
         }
 
         protected override Position GetRandomPosition()
@@ -54,15 +61,17 @@
                         this.newGame.MoveDown();
                     }
                 }
-                
-                if (this.snake.Head.Row < 0 || this.snake.Head.Row >= Console.BufferHeight ||
-                    this.snake.Head.Col < 0 || this.snake.Head.Col >= Console.BufferWidth ||
-                    this.snake.SnakeElements.Contains(this.newGame.NewHeadPosition()))
+
+                var newHeadPosition = this.newGame.NewHeadPosition();
+
+                if (newHeadPosition.Row < 0 || newHeadPosition.Row >= Console.BufferHeight ||
+                    newHeadPosition.Col < 0 || newHeadPosition.Col >= Console.BufferWidth ||
+                    this.snake.SnakeElements.Contains(newHeadPosition))
                 {
                     this.End();
                     break;
                 }
-
+                
                 this.newGame.ChangePosition();
 
                 if (this.snake.Head.Row == this.food.Position.Row &&
@@ -88,6 +97,7 @@
         public override void End()
         {
             Console.Clear();
+            Console.ForegroundColor = this.gameOverColor;
             Console.SetCursorPosition(Console.BufferWidth / 2 - EndMessageFormat.Length / 2, Console.BufferHeight / 2);
             Console.Write(EndMessageFormat, this.newGame.Points);
             Console.ReadKey();
@@ -95,12 +105,14 @@
 
         public override void Draw()
         {
+            Console.ForegroundColor = this.snakeColor;
             foreach (var element in this.snake.SnakeElements)
             {
                 Console.SetCursorPosition(element.Col, element.Row);
                 Console.Write(Snake.TailElementSymbol);
             }
 
+            Console.ForegroundColor = this.foodColor;
             Console.SetCursorPosition(this.food.Position.Col, this.food.Position.Row);
             Console.Write(Food.Symbol);
         }

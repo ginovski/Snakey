@@ -10,14 +10,14 @@
         private static Random randomGenerator = new Random();
 
         private Position[] directions;
-        private Directions direction;
+        private Direction direction;
 
         public Game(Snake snake, Food food)
         {
             this.Snake = snake;
             this.Food = food;
             this.Points = 0;
-            this.direction = Directions.Right;
+            this.direction = Direction.Right;
             this.directions = new Position[]
             {
                 new Position(0, 1), // right
@@ -35,33 +35,33 @@
 
         public void MoveRight()
         {
-            if (direction != Directions.Left)
+            if (direction != Direction.Left)
             {
-                direction = Directions.Right;
+                direction = Direction.Right;
             }
         }
 
         public void MoveLeft()
         {
-            if (direction != Directions.Right)
+            if (direction != Direction.Right)
             {
-                direction = Directions.Left;
+                direction = Direction.Left;
             }
         }
 
         public void MoveDown()
         {
-            if (direction != Directions.Up)
+            if (direction != Direction.Up)
             {
-                direction = Directions.Down;
+                direction = Direction.Down;
             }
         }
 
         public void MoveUp()
         {
-            if (direction != Directions.Down)
+            if (direction != Direction.Down)
             {
-                direction = Directions.Up;
+                direction = Direction.Up;
             }
         }
 
