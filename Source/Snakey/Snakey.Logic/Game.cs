@@ -35,22 +35,34 @@
 
         public void MoveRight()
         {
-            direction = Directions.Right;
+            if (direction != Directions.Left)
+            {
+                direction = Directions.Right;
+            }
         }
 
         public void MoveLeft()
         {
-            direction = Directions.Left;
+            if (direction != Directions.Right)
+            {
+                direction = Directions.Left;
+            }
         }
 
         public void MoveDown()
         {
-            direction = Directions.Down;
+            if (direction != Directions.Up)
+            {
+                direction = Directions.Down;
+            }
         }
 
         public void MoveUp()
         {
-            direction = Directions.Up;
+            if (direction != Directions.Down)
+            {
+                direction = Directions.Up;
+            }
         }
 
         public void ChangePosition()

@@ -26,5 +26,9 @@
         protected abstract void Setup();
 
         public abstract void Run();
+
+        public abstract void End();
+
+        public abstract void Draw();
     }
 }

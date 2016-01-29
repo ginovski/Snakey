@@ -3,13 +3,15 @@
     using System;
     using System.Threading;
 
+    using Common;
     using Logic;
     using Logic.GameObjects;
-    using Common;
 
     public class ConsoleGameEngine : GameEngine
     {
         private static Random randomGenerator = new Random();
+
+        private const string EndMessageFormat = "Game Over.Your score is {0}$";
 
         protected override void Setup()
         {
@@ -54,6 +56,14 @@
                 }
 
                 this.newGame.ChangePosition();
+
+                if (this.snake.Head.Row < 1 || this.snake.Head.Row >= Console.BufferHeight ||
+                    this.snake.Head.Col < 0 || this.snake.Head.Col >= Console.BufferWidth)
+                {
+                    this.End();
+                    break;
+                }
+
                 if (this.snake.Head.Row == this.food.Position.Row &&
                     this.snake.Head.Col == this.food.Position.Col)
                 {
@@ -73,7 +83,15 @@
             }
         }
 
-        public void Draw()
+        public override void End()
+        {
+            Console.Clear();
+            Console.SetCursorPosition(Console.BufferWidth / 2 - EndMessageFormat.Length / 2, Console.BufferHeight / 2);
+            Console.Write(EndMessageFormat, this.newGame.Points);
+            Console.ReadKey();
+        }
+
+        public override void Draw()
         {
             Console.Write(new string('-', (Console.BufferWidth / 2) - 4));
             Console.Write("{0}$", this.newGame.Points);
