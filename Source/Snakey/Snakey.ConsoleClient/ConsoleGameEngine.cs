@@ -54,20 +54,22 @@
                         this.newGame.MoveDown();
                     }
                 }
-
-                this.newGame.ChangePosition();
-
-                if (this.snake.Head.Row < 1 || this.snake.Head.Row >= Console.BufferHeight ||
-                    this.snake.Head.Col < 0 || this.snake.Head.Col >= Console.BufferWidth)
+                
+                if (this.snake.Head.Row < 0 || this.snake.Head.Row >= Console.BufferHeight ||
+                    this.snake.Head.Col < 0 || this.snake.Head.Col >= Console.BufferWidth ||
+                    this.snake.SnakeElements.Contains(this.newGame.NewHeadPosition()))
                 {
                     this.End();
                     break;
                 }
 
+                this.newGame.ChangePosition();
+
                 if (this.snake.Head.Row == this.food.Position.Row &&
                     this.snake.Head.Col == this.food.Position.Col)
                 {
                     this.newGame.Points++;
+                    this.speed -= 1;
 
                     var newFoodPosition = this.GetRandomPosition();
                     this.newGame.GenerateNewFood(newFoodPosition);
@@ -79,7 +81,7 @@
                 Console.Clear();
                 this.Draw();
 
-                Thread.Sleep(Speed);
+                Thread.Sleep(this.speed);
             }
         }
 
@@ -93,10 +95,6 @@
 
         public override void Draw()
         {
-            Console.Write(new string('-', (Console.BufferWidth / 2) - 4));
-            Console.Write("{0}$", this.newGame.Points);
-            Console.Write(new string('-', (Console.BufferWidth / 2) - 4));
-
             foreach (var element in this.snake.SnakeElements)
             {
                 Console.SetCursorPosition(element.Col, element.Row);

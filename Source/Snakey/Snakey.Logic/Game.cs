@@ -65,6 +65,16 @@
             }
         }
 
+        public Position NewHeadPosition()
+        {
+            var headPosition = this.Snake.Head;
+            var newDirection = directions[(int)direction];
+
+            var newPosition = new Position(headPosition.Row + newDirection.Row, headPosition.Col + newDirection.Col);
+
+            return newPosition;
+        }
+
         public void ChangePosition()
         {
             this.Snake.Dequeue();
