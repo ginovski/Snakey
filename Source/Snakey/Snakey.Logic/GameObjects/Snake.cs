@@ -1,29 +1,34 @@
 ﻿namespace Snakey.Logic.GameObjects
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     using Snakey.Common;
 
     public class Snake
     {
-        private const char HeadSymbol = '@';
-        private const char TailElementSymbol = '*';
         private const int InitialTailLength = 5;
+        public const char HeadSymbol = '@';
+        public const char TailElementSymbol = '*';
 
         private int tailLength;
+        private Queue<Position> snakeElements;
 
-        public Snake(Position position, int tailLength)
-            : this(position)
+        public Snake()
+            : this(InitialTailLength)
+        {
+        }
+
+        public Snake(int tailLength)
         {
             this.TailLength = tailLength;
+            this.snakeElements = new Queue<Position>();
+            for (int i = 0; i < this.TailLength; i++)
+            {
+                snakeElements.Enqueue(new Position(0, i));
+            }
         }
-
-        public Snake(Position position)
-        {
-            this.Position = position;
-        }
-
-        public Position Position { get; set; }
 
         public int TailLength
         {
@@ -39,12 +44,33 @@
                 }
 
                 this.tailLength = value;
-            } 
+            }
         }
 
-        public void AddTailElement()
+        public Queue<Position> SnakeElements
         {
-            this.TailLength++;
+            get
+            {
+                return new Queue<Position>(this.snakeElements);
+            }
+        }
+
+        public Position Head
+        {
+            get
+            {
+                return this.snakeElements.Last();
+            }
+        }
+
+        public Position Dequeue()
+        {
+            return this.snakeElements.Dequeue();
+        }
+
+        public void Enqueue(Position position)
+        {
+            this.snakeElements.Enqueue(position);
         }
     }
 }

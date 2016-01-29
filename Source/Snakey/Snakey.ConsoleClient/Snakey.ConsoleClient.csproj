@@ -43,11 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleGameEngine.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Snakey.Common\Snakey.Common.csproj">
+      <Project>{d1ad6ebf-6457-404b-94d8-b73a2bb8703c}</Project>
+      <Name>Snakey.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Snakey.Logic\Snakey.Logic.csproj">
+      <Project>{01916f6d-51da-42cb-b65a-ba17eb9689f8}</Project>
+      <Name>Snakey.Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
