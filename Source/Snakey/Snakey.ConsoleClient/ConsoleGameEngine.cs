@@ -1,26 +1,19 @@
 ﻿namespace Snakey.ConsoleClient
 {
     using System;
+    using System.Threading;
 
     using Logic;
     using Logic.GameObjects;
-    using System.Threading;
-    public class ConsoleGameEngine
+
+    public class ConsoleGameEngine : GameEngine
     {
-        private const int Speed = 100;
-
-        private Snake snake;
-        private Food food;
-        private Game newGame;
-
-        public ConsoleGameEngine()
+        public override void Setup()
         {
-            this.newGame = new Game(new Snake());
-            this.snake = this.newGame.Snake;
-            this.food = this.newGame.Food;
+            Console.BufferHeight = Console.WindowHeight;
         }
 
-        public void Run()
+        public override void Run()
         {
             foreach (var element in this.snake.SnakeElements)
             {
