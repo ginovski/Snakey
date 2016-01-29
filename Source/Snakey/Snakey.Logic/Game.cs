@@ -12,10 +12,10 @@
         private Position[] directions;
         private Directions direction;
         
-        public Game(Snake snake)
+        public Game(Snake snake, Food food)
         {
             this.Snake = snake;
-            this.GenerateNewFood();
+            this.Food = food;
             this.direction = Directions.Right;
             this.directions = new Position[]
             {
@@ -26,9 +26,9 @@
             };
         }
         
-        public Food Food { get; set; }
+        public Food Food { get; private set; }
 
-        public Snake Snake { get; set; }
+        public Snake Snake { get; private set;}
 
         public void MoveRight()
         {
@@ -62,14 +62,9 @@
             this.Snake.Enqueue(newPosition);
         }
 
-        public void GenerateNewFood()
+        public void GenerateNewFood(Position position)
         {
-            int foodX = randomGenerator.Next(0, Console.BufferWidth - 1);
-            int foodY = randomGenerator.Next(0, Console.BufferHeight - 1);
-
-            var position = new Position(foodX, foodY);
             var food = new Food(position);
-
             this.Food = food;
         }
     }

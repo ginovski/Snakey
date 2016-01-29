@@ -1,5 +1,7 @@
 ﻿namespace Snakey.Logic
 {
+    using System;
+    using Common;
     using Snakey.Logic.GameObjects;
 
     public abstract class GameEngine
@@ -12,14 +14,16 @@
 
         public GameEngine()
         {
-            this.newGame = new Game(new Snake());
+            this.Setup();
+
+            this.newGame = new Game(new Snake(), new Food(this.GetRandomPosition()));
             this.snake = this.newGame.Snake;
             this.food = this.newGame.Food;
-
-            this.Setup();
         }
 
-        public abstract void Setup();
+        protected abstract Position GetRandomPosition();
+
+        protected abstract void Setup();
 
         public abstract void Run();
     }
