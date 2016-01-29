@@ -34,6 +34,16 @@
             int foodY = randomGenerator.Next(0, Console.BufferWidth - 1);
 
             var position = new Position(foodX, foodY);
+            if (this.snake != null)
+            {
+                while (this.snake.SnakeElements.Contains(position))
+                {
+                    foodX = randomGenerator.Next(0, Console.BufferHeight - 1);
+                    foodY = randomGenerator.Next(0, Console.BufferWidth - 1);
+
+                    position = new Position(foodX, foodY);
+                }
+            }
 
             return position;
         }
@@ -87,6 +97,7 @@
                     this.speed -= 1;
 
                     var newFoodPosition = this.GetRandomPosition();
+
                     this.newGame.GenerateNewFood(newFoodPosition);
                     this.newGame.EnlargeSnake();
 
@@ -99,6 +110,7 @@
                 {
                     var newFoodPosition = this.GetRandomPosition();
                     this.newGame.GenerateNewFood(newFoodPosition);
+
                     this.foodTimer.Reset();
                     this.foodTimer.Start();
                     this.food = this.newGame.Food;
