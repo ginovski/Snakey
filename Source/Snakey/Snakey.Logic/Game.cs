@@ -8,14 +8,15 @@
     public class Game
     {
         private static Random randomGenerator = new Random();
-        
+
         private Position[] directions;
         private Directions direction;
-        
+
         public Game(Snake snake, Food food)
         {
             this.Snake = snake;
             this.Food = food;
+            this.Points = 0;
             this.direction = Directions.Right;
             this.directions = new Position[]
             {
@@ -25,10 +26,12 @@
                 new Position(-1, 0), // up
             };
         }
-        
+
         public Food Food { get; private set; }
 
-        public Snake Snake { get; private set;}
+        public Snake Snake { get; private set; }
+
+        public int Points { get; set; }
 
         public void MoveRight()
         {
@@ -66,6 +69,16 @@
         {
             var food = new Food(position);
             this.Food = food;
+        }
+
+        public void EnlargeSnake()
+        {
+            var headPosition = this.Snake.Head;
+            var newDirection = directions[(int)direction];
+
+            var newPosition = new Position(headPosition.Row + newDirection.Row, headPosition.Col + newDirection.Col);
+
+            this.Snake.Enqueue(newPosition);
         }
     }
 }

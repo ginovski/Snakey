@@ -26,7 +26,7 @@
             this.snakeElements = new Queue<Position>();
             for (int i = 0; i < this.TailLength; i++)
             {
-                snakeElements.Enqueue(new Position(0, i));
+                snakeElements.Enqueue(new Position(1, i));
             }
         }
 
